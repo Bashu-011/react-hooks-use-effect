@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 
-// WARNING: this useEffect will run in an infinite loop!
-// to fix, pass an empty array as the second argument for useEffect
-function DogPics() {
+function DogPics({counter}) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect");
     fetch("https://dog.ceo/api/breeds/image/random/3")
       .then((r) => r.json())
       .then((data) => {
-        console.log("setState");
+        // setting state in the useEffect callback
         setImages(data.message);
       });
-  });
-
-  console.log("render");
+  }, [counter]);
 
   return (
     <div>
@@ -26,4 +23,4 @@ function DogPics() {
   );
 }
 
-export default DogPics;
+export default DogPics
